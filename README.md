@@ -23,4 +23,4 @@ Two files, one which contains functions for estimation of parameters under three
    * Produce conditional survival distribution plots (including Kaplan-Meier product limit estimate and the exponential distribution estimate)
  * Complete leukemia dataset (Gehan, (1965)) : Treatment and Control Groups
    * Fit models under both inverese linear (limiting harmonic) and gamma process
-   * Produce conditional survival distribution plot 
+   * Produce conditional survival distribution plot.
