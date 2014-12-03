@@ -394,6 +394,7 @@ invlin_fit <- function(times, cens, initial_params, weights_formula) {
               'std_err' = limit_har_stderr,
               'log_lik' = -limit_har_oplik$value,
               'conv' = limit_har_oplik$convergence,
-              'cond_dist' = limit_cond_surv
+              'cond_dist' = limit_cond_surv,
+              'weights' = exp(W%*%beta)
         ))
 }

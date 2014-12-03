@@ -24,7 +24,12 @@ k_m <- function(t) {
   unique_times = unique(times)
   unique_times = c(0,unique_times[order(unique_times)])
   
-  risk = unlist(lapply(unique_times,total_risk(0)))  
+  total_risk <- function(t) {
+    weights = rep(1,length(times))
+    return(sum(weights[(times > t & cens == 0) | (times >= t & cens == 1)]))
+  }
+  
+  risk = unlist(lapply(unique_times,total_risk))  
   
   deaths = death_unique = rep(0,0)
   for (i in 1:length(unique_times)) {
@@ -90,21 +95,22 @@ ilfit_covariates <- invlin_fit(times,cens,weights_formula = ~treatment-1)
 cbind(ilfit_covariates$par,ilfit_covariates$std_err)
 
 # Conditional Distribution 
-treat_weight = min(gfit$weights); control_weight = max(gfit$weights)
+gam_treat_weight = min(gfit_covariates$weights); gam_control_weight = max(gfit_covariates$weights)
+invlin_treat_weight = min(ilfit_covariates$weights); invlin_control_weight = max(ilfit_covariates$weights)
 
 death_times = unique(times[cens==0])
 
 obs_times = c(seq(0,35,0.1),death_times+0.001, death_times-0.001)
 obs_times = obs_times[order(obs_times)]
 
-gamma_surv_treat = unlist(lapply(obs_times,gfit_covariates$cond_dist(treat_weight)))
-gamma_surv_control = unlist(lapply(obs_times,gfit_covariates$cond_dist(control_weight)))
+gamma_surv_treat = unlist(lapply(obs_times,gfit_covariates$cond_dist(gam_treat_weight)))
+gamma_surv_control = unlist(lapply(obs_times,gfit_covariates$cond_dist(gam_control_weight)))
 
-invlin_surv_treat = unlist(lapply(obs_times,ilfit_covariates$cond_dist(treat_weight)))
-invlin_surv_control = unlist(lapply(obs_times,ilfit_covariates$cond_dist(control_weight)))
+invlin_surv_treat = unlist(lapply(obs_times,ilfit_covariates$cond_dist(invlin_treat_weight)))
+invlin_surv_control = unlist(lapply(obs_times,ilfit_covariates$cond_dist(invlin_control_weight)))
 
 
-# png("cond_surv_plot.png", width = 6,height = 4, units = "in", res = 300)
+#png("prophaz_condsurv_plot.png", width = 6,height = 4, units = "in", res = 300)
 
 par(mar= c(5,4,1,2)+0.1)
 
@@ -120,5 +126,5 @@ lines(obs_times, invlin_surv_treat, lty = 2)
 legend(25,1.0, c("Treatment", "Control"), lty = c(2,1), cex = 0.6)
 legend(25,0.85, c("Harmonic", "Gamma"), lty = c(1,1), col = c("black", "red"), cex = 0.6)
 
-# dev.off()
+#dev.off()
 
