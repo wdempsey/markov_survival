@@ -11,5 +11,10 @@ Two files, one which contains functions for estimation of parameters under three
     * weights_formula (optional) : The formula for the covariate matrix, W, associated with the weights = exp(W * beta).  If missing, we assume the weights are identically one for each patient.
     * parameterization (optional) : For the gamma process, we can choose between either the 'ratio' or 'standard' parameterization.
   * Output : 
-   * 
+   * par : Maximum likelihood parameter estimates
+   * std_err : Standard errors for parameter estimates
+   * log_lik : Log-likelihood at the mle
+   * conv : Convergence of the parameter estimates (useful when the mle is at a boundary case)
+   * cond_dist : Function for the conditional survival distribution at t for a weight given observed times
+
 2.  gehan_example.R : 
