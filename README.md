@@ -8,5 +8,7 @@ Two files, one which contains functions for estimation of parameters under three
     * times : The observed survival or censoring times for each patiet
     * cens : 
     * initial_params : 
-    * weights_formula : 
+    * weights_formula : The formula for the covariate matrix, W, associated with the weights = exp(W * beta)
+    * parameterization : For the gamma process, we can choose between either the 'ratio' or 'standard' parameterization.
+  * Output : 
 2.  gehan_example.R : 
