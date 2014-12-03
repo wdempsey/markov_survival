@@ -20,7 +20,7 @@ Two files, one which contains functions for estimation of parameters under three
 2.  gehan_example.R : 
  * 6-MP subset of leukemia patients (Gehan, (1965))
    * Fit models under both harmonic and gamma process
-   * Produce conditional survival distribution plots (including Kaplan-Meier product limit estimate and the exponential distribution estimate)
+    * Produce conditional survival distribution plots (including Kaplan-Meier product limit estimate and the exponential distribution estimate)
  * Complete leukemia dataset (Gehan, (1965)) : Treatment and Control Groups
    * Fit models under both inverese linear (limiting harmonic) and gamma process
    * Produce conditional survival distribution plot.
