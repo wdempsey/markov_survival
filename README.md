@@ -1,7 +1,7 @@
 Markov Survival Processes :  Fitting Software
 ===============
 
-Two files, one which contains functions for estimation of parameters under three different markov survival processes (harmonic, gamma, and inverse linear) and another which applies these functions to the a particular dataset (Gehan, (1965)).
+Two files, one which contains functions for estimation of parameters under three different markov survival processes (harmonic, gamma, and inverse linear) and another which applies these functions to a particular dataset (Gehan, (1965)).
 
 1.  markov_process_fit.R :  Contains three functions (har_fit, gamma_fit, and invlin_fit)
   * Inputs : 
