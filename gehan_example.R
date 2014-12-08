@@ -90,9 +90,16 @@ gfit_covariates <- gamma_fit(times,cens,weights_formula = ~treatment-1, paramete
                       
 cbind(gfit_covariates$par,gfit_covariates$std_err)
 
+1/(gfit_covariates$par[2]/gfit_covariates$par[1]*(log(1+exp(1*gfit_covariates$par[3])*gfit_covariates$par[1])))
+1/(gfit_covariates$par[2]/gfit_covariates$par[1]*(log(1+exp(0*gfit_covariates$par[3])*gfit_covariates$par[1])))
+
 ilfit_covariates <- invlin_fit(times,cens,weights_formula = ~treatment-1)
 
 cbind(ilfit_covariates$par,ilfit_covariates$std_err)
+
+1/(ilfit_covariates$par[1]* ilfit_covariates$par[2]*exp(1* ilfit_covariates$par[3])/(1+ ilfit_covariates$par[2]*exp(1* ilfit_covariates$par[3])))
+1/(ilfit_covariates$par[1]* ilfit_covariates$par[2]*exp(0*ilfit_covariates$par[3])/(1+ ilfit_covariates$par[2]*exp(0*ilfit_covariates$par[3])))
+
 
 library(survival)
 # Create the simplest test data set
