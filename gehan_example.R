@@ -94,6 +94,19 @@ ilfit_covariates <- invlin_fit(times,cens,weights_formula = ~treatment-1)
 
 cbind(ilfit_covariates$par,ilfit_covariates$std_err)
 
+library(survival)
+# Create the simplest test data set
+data <- list(time=times, cens=cens,treat = treatment)
+
+# Fit a stratified model
+cox_fit <- coxph(Surv(time, !cens) ~ treat, data, method = "exact")
+
+summary(cox_fit)
+
+exp_fit <- survreg(Surv(times,!cens)~treatment, dist = 'exponential')
+
+summary(exp_fit)
+
 # Conditional Distribution 
 gam_treat_weight = min(gfit_covariates$weights); gam_control_weight = max(gfit_covariates$weights)
 invlin_treat_weight = min(ilfit_covariates$weights); invlin_control_weight = max(ilfit_covariates$weights)
@@ -109,6 +122,11 @@ gamma_surv_control = unlist(lapply(obs_times,gfit_covariates$cond_dist(gam_contr
 invlin_surv_treat = unlist(lapply(obs_times,ilfit_covariates$cond_dist(invlin_treat_weight)))
 invlin_surv_control = unlist(lapply(obs_times,ilfit_covariates$cond_dist(invlin_control_weight)))
 
+
+gamma_surv_treat[obs_times == max(times[cens==0])]
+gamma_surv_control[obs_times == max(times[cens==0])]
+invlin_surv_treat[obs_times == max(times[cens==0])]
+invlin_surv_control[obs_times == max(times[cens==0])]
 
 #png("prophaz_condsurv_plot.png", width = 6,height = 4, units = "in", res = 300)
 
